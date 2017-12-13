@@ -12,6 +12,10 @@ class Literal implements Element {
 		this(symbol, true);
 	}
 
+	public boolean isNotNegated() {
+		return this.isNotNegated();
+	}
+
 	public void negate() {
 		this.notNegated = !this.notNegated;
 	}

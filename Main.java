@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Test 1");
+		System.out.println("Test 1: AND & OR");
 		Operation opA = new Operation(OperationType.AND);
 		opA.addComponent(new Literal('p', false));
 		opA.addComponent(new Literal('q'));
@@ -12,7 +12,7 @@ public class Main {
 		System.out.println("Negate...");
 		opA.negate();
 		System.out.println(opA);
-		System.out.println("Test 2");
+		System.out.println("Test 2: THEN Operation");
 		Operation opB = new Operation(OperationType.AND);
 		opB.addComponent(new Literal('p'));
 		opB.addComponent(new Literal('q', false));
@@ -21,7 +21,15 @@ public class Main {
 		opC.addComponent(opB);
 		System.out.println(opC);
 		System.out.println("Negate...");
-		opA.negate();
+		opC.negate();
 		System.out.println(opC);
+		System.out.println("Test 3: Operations negated");
+		Operation opD = new Operation(OperationType.THEN, false);
+		opD.addComponent(new Literal('p'));
+		opD.addComponent(new Literal('q'));
+		System.out.println(opD);
+		System.out.println("Negate...");
+		opD.negate();
+		System.out.println(opD);
 	}
 }

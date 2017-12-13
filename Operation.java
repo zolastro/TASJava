@@ -15,6 +15,29 @@ public class Operation implements Element {
 		this.components.add(component);
 	}
 
+	public void negate() {
+		switch(this.type) {
+			case AND:
+			this.type = OperationType.OR;
+			this.negateAllComponents();
+			break;
+			case OR:
+			this.type = OperationType.AND;
+			break;
+			case THEN:			
+			this.type = OperationType.OR;
+			this.components.get(0).negate();
+			this.components.get(1).negate();
+			break;
+		}
+	}
+
+	public void negateAllComponents() {
+		for (Element component : this.components) {
+			component.negate();
+		}
+	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("(");
 		int lenComponents = this.components.size();

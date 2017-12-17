@@ -7,13 +7,14 @@ public class Operation implements Element {
 
 	public List<Element> components;
 	public OperationType type;
-	private boolean isNotNegated;
+	private boolean isPositive;
 
-	public Operation(OperationType type, boolean isNotNegated) {
+	public Operation(OperationType type, boolean isPositive) {
 		this.type = type;
 		this.components = new ArrayList<>();
-		this.isNotNegated = isNotNegated;
+		this.isPositive = isPositive;
 	}
+
 	public Operation(OperationType type) {
 		this(type, true);
 	}
@@ -22,34 +23,48 @@ public class Operation implements Element {
 		this.components.add(component);
 	}
 
-	public boolean isNotNegated() {
-		return this.isNotNegated;
+	public boolean isPositive() {
+		return this.isPositive;
 	}
 
 	public void negate() {
-		if(isNotNegated()){
-			switch(this.type) {
-				case AND:
-				this.type = OperationType.OR;
-				this.negateAllComponents();
-				break;
-				case OR:
-				this.type = OperationType.AND;
-				this.negateAllComponents();
-				break;
-				case THEN:			
-				this.type = OperationType.OR;
-				this.components.get(0).negate();
-				break;
-				default:
-				throw new RuntimeException("Operation not implemented");
-			}
-		} else {
-			this.isNotNegated = true;
-			if(this.type == OperationType.THEN) {
-				this.type = OperationType.AND;
-				this.components.get(1).negate();
-			}
+		this.isPositive = !this.isPositive;
+	}
+
+	private void negateType() {
+
+		switch (this.type) {
+		case AND:
+			this.type = OperationType.OR;
+			this.negateAllComponents();
+			break;
+		case OR:
+			this.type = OperationType.AND;
+			this.negateAllComponents();
+			break;
+		case THEN:
+			this.type = OperationType.AND;
+			this.components.get(1).negate();
+			break;
+		default:
+			throw new RuntimeException("Operation not implemented");
+		}
+
+		this.isPositive = true;
+	}
+
+	public void propagateToChildren() {
+		if (!this.isPositive()) {
+			this.negateType();
+		}
+		
+		if (this.type == OperationType.THEN) {
+			this.type = OperationType.OR;
+			this.components.get(0).negate();
+		}
+
+		for (Element component : this.components) {
+			component.propagateToChildren();
 		}
 	}
 
@@ -61,7 +76,7 @@ public class Operation implements Element {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append((this.isNotNegated()? "":"¬") + "(");
+		sb.append((this.isPositive() ? "" : "¬") + "(");
 		int lenComponents = this.components.size();
 		for (int i = 0; i < lenComponents; i++) {
 			sb.append(this.components.get(i));

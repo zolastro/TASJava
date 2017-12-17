@@ -2,25 +2,29 @@ import java.util.List;
 
 class Literal implements Element {
 
-	public boolean notNegated;
+	public boolean isPositive;
 	private char symbol;
-	public Literal(char symbol, boolean notNegated){
+	public Literal(char symbol, boolean isPositive){
 		this.symbol = symbol;
-		this.notNegated = notNegated;
+		this.isPositive = isPositive;
 	}
 	public Literal(char symbol) {
 		this(symbol, true);
 	}
 
-	public boolean isNotNegated() {
-		return this.isNotNegated();
+	public boolean isPositive() {
+		return this.isPositive;
 	}
 
 	public void negate() {
-		this.notNegated = !this.notNegated;
+		this.isPositive = !this.isPositive;
 	}
 
 	public String toString() {
-		return (this.notNegated ? "":"¬") + this.symbol;
+		return (this.isPositive ? "":"¬") + this.symbol;
+	}
+
+	public void propagateToChildren() {
+		
 	}
 }

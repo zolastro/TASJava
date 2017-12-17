@@ -1,32 +1,30 @@
 import java.util.List;
 
-class Literal extends LogicalOperation {
-	public boolean isNegated;
+class Literal implements Element {
 
-	public Literal(List<LogicalOperation> components) {
-		super(components);
-		this.isNegated = false;
-		operation = Operation.LITERAL;
+	public boolean isPositive;
+	private char symbol;
+	public Literal(char symbol, boolean isPositive){
+		this.symbol = symbol;
+		this.isPositive = isPositive;
+	}
+	public Literal(char symbol) {
+		this(symbol, true);
 	}
 
-	public Literal(List<LogicalOperation> components, boolean isNegated) {
-		super(components);
-		this.isNegated = isNegated;
-		operation = Operation.LITERAL;
+	public boolean isPositive() {
+		return this.isPositive;
 	}
 
-	LogicalOperation negate() {
-
-		isNegated = !isNegated;
-		return this;
+	public void negate() {
+		this.isPositive = !this.isPositive;
 	}
 
 	public String toString() {
-		String s = "";
+		return (this.isPositive ? "":"¬") + this.symbol;
+	}
 
-		if (isNegated) {
-			s = "Negated";
-		}
-		return operation + s;
+	public void propagateToChildren() {
+		
 	}
 }

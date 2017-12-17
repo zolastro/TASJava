@@ -56,9 +56,7 @@ public class Operation implements Element {
 	public void propagateToChildren() {
 		if (!this.isPositive()) {
 			this.negateType();
-		}
-		
-		if (this.type == OperationType.THEN) {
+		} else if (this.type == OperationType.THEN) {
 			this.type = OperationType.OR;
 			this.components.get(0).negate();
 		}
@@ -66,6 +64,22 @@ public class Operation implements Element {
 		for (Element component : this.components) {
 			component.propagateToChildren();
 		}
+
+		List<Element> mergedComponents = new ArrayList<>();
+
+		for (Element child : this.components) {
+			if (child instanceof Operation) {
+				Operation component = (Operation) child;
+				if (component.type == this.type) {
+					mergedComponents.addAll(component.components);
+				} else {
+					mergedComponents.add(component);
+				}
+			} else {
+				mergedComponents.add(child);
+			}
+		}
+		 this.components = mergedComponents;
 	}
 
 	public void negateAllComponents() {
@@ -73,7 +87,6 @@ public class Operation implements Element {
 			component.negate();
 		}
 	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append((this.isPositive() ? "" : "¬") + "(");

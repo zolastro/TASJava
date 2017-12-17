@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		Operation andOp = new Operation(OperationType.THEN);
-		Operation orOp1 = new Operation(OperationType.THEN, false);
+		Operation orOp1 = new Operation(OperationType.THEN);
 		orOp1.addComponent(new Literal('a'));
 		orOp1.addComponent(new Literal('b'));
 		andOp.addComponent(orOp1);

@@ -2,7 +2,7 @@ package src.prLogicalElements;
 
 public class Literal implements Element {
 
-	public boolean isPositive;
+	private boolean isPositive;
 	private char symbol;
 	public Literal(char symbol, boolean isPositive){
 		this.symbol = symbol;

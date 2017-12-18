@@ -23,7 +23,7 @@ public class LiteralTests {
 	public void isLiteral_Negated_toggleIsPositive() {
 		assertTrue(literal.isPositive());
 		literal.negate();
-		assertFalse(literal.isPositive);
+		assertFalse(literal.isPositive());
 	}
 	
 	@Test
@@ -31,5 +31,16 @@ public class LiteralTests {
 		assertEquals(literal.toString(), "p");
 		literal.negate();
 		assertEquals(literal.toString(), "¬p");
+	}
+
+	@Test
+	public void defaultConstructor_isPositive_true() {
+		assertTrue(literal.isPositive());
+	}
+	
+	@Test
+	public void falseConstructor_isPositive_false() {
+		Literal negateLiteral = new Literal('q', false);
+		assertFalse(negateLiteral.isPositive());
 	}
 }

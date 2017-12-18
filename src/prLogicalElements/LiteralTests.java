@@ -18,29 +18,32 @@ public class LiteralTests {
 	public void tearDown() {
 		this.literal = null;
 	}
+
+	@Test
+	public void when_useDefaultConstructor_then_literalIsPositive() {
+		Literal positiveLiteral = new Literal('q');
+		assertTrue(literal.isPositive());
+	}
 	
 	@Test
-	public void isLiteral_Negated_toggleIsPositive() {
+	public void when_useConstructorWithFalse_then_literalIsNegated() {
+		Literal negatedLiteral = new Literal('q', false);
+		assertFalse(negatedLiteral.isPositive());
+	}
+	
+	@Test
+	public void when_literalNegated_then_toggleIsPositive() {
 		assertTrue(literal.isPositive());
 		literal.negate();
 		assertFalse(literal.isPositive());
-	}
-	
-	@Test
-	public void toString_LiteralNegated_AddSymbol() {
-		assertEquals(literal.toString(), "p");
 		literal.negate();
-		assertEquals(literal.toString(), "¬p");
-	}
-
-	@Test
-	public void defaultConstructor_isPositive_true() {
 		assertTrue(literal.isPositive());
 	}
 	
 	@Test
-	public void falseConstructor_isPositive_false() {
-		Literal negateLiteral = new Literal('q', false);
-		assertFalse(negateLiteral.isPositive());
+	public void when_literalNegated_then_toStringAddsSymbol() {
+		assertEquals(literal.toString(), "p");
+		literal.negate();
+		assertEquals(literal.toString(), "¬p");
 	}
 }

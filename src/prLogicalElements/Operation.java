@@ -30,7 +30,7 @@ public class Operation implements Element {
 		this.isPositive = !this.isPositive;
 	}
 
-	private void negateType() {
+	public void negateType() {
 
 		switch (this.type) {
 		case AND:
@@ -54,6 +54,7 @@ public class Operation implements Element {
 
 	public void signar() {
 		//Check if it is negated or if it is a THEN operation
+		
 		if (!this.isPositive()) {
 			this.negateType();
 		} else if (this.type == OperationType.THEN) {
@@ -62,6 +63,7 @@ public class Operation implements Element {
 		}
 		
 		//Signar all it's children
+		
 		for (Element component : this.components) {
 			component.signar();
 		}
@@ -82,7 +84,7 @@ public class Operation implements Element {
 				mergedComponents.add(child);
 			}
 		}
-		 this.components = mergedComponents;
+		this.components = mergedComponents;
 	}
 
 	public void negateAllComponents() {

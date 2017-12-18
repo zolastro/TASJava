@@ -27,4 +27,13 @@ public class Literal implements Element {
 	public void signar() {
 		
 	}
+	
+	public boolean equals(Object o) {
+		boolean isEquals = false;
+		if(o instanceof Literal) {
+			Literal literal = (Literal)o;
+			isEquals = literal.symbol == this.symbol;
+		}
+		return isEquals;
+	}
 }

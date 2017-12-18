@@ -1,7 +1,6 @@
+package prLogicalElements;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.management.RuntimeErrorException;
 
 public class Operation implements Element {
 

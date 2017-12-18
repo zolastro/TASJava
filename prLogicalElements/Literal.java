@@ -1,6 +1,6 @@
-import java.util.List;
+package prLogicalElements;
 
-class Literal implements Element {
+public class Literal implements Element {
 
 	public boolean isPositive;
 	private char symbol;

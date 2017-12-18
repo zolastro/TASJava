@@ -13,7 +13,7 @@ public class Main {
 		andOp.addComponent(new Literal('c'));
 		System.out.println("Original:");
 		System.out.println(andOp);
-		andOp.propagateToChildren();
+		andOp.signar();
 		System.out.println("Signar test");
 		System.out.println(andOp);
 

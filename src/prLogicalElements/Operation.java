@@ -52,18 +52,22 @@ public class Operation implements Element {
 		this.isPositive = true;
 	}
 
-	public void propagateToChildren() {
+	public void signar() {
+		//Check if it is negated or if it is a THEN operation
 		if (!this.isPositive()) {
 			this.negateType();
 		} else if (this.type == OperationType.THEN) {
 			this.type = OperationType.OR;
 			this.components.get(0).negate();
 		}
-
+		
+		//Signar all it's children
 		for (Element component : this.components) {
-			component.propagateToChildren();
+			component.signar();
 		}
-
+		
+		//Merge children of the same type
+		
 		List<Element> mergedComponents = new ArrayList<>();
 
 		for (Element child : this.components) {

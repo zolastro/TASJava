@@ -24,7 +24,7 @@ public class Literal implements Element {
 		return (this.isPositive ? "":"¬") + this.symbol;
 	}
 
-	public void propagateToChildren() {
+	public void signar() {
 		
 	}
 }

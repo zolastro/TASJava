@@ -3,7 +3,7 @@ package src.prLogicalElements;
 public class Literal implements Element {
 
 	private boolean isPositive;
-	private String symbol;
+	public String symbol;
 	public Literal(String symbol, boolean isPositive){
 		this.symbol = symbol;
 		this.isPositive = isPositive;
@@ -32,7 +32,7 @@ public class Literal implements Element {
 		boolean isEquals = false;
 		if(o instanceof Literal) {
 			Literal literal = (Literal)o;
-			isEquals = literal.symbol == this.symbol;
+			isEquals = this.symbol.equals(literal.symbol);
 		}
 		return isEquals;
 	}

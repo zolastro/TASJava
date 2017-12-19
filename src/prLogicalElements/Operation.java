@@ -18,6 +18,12 @@ public class Operation implements Element {
 		this(type, true);
 	}
 
+	public void addComponents(Element ... elements) {
+		for(Element element : elements) {
+			this.addComponent(element);
+		}
+	}
+	
 	public void addComponent(Element component) {
 		this.components.add(component);
 	}
@@ -28,7 +34,7 @@ public class Operation implements Element {
 
 	public void negate() {
 		this.isPositive = !this.isPositive;
-	}
+	}	
 
 	public void negateType() {
 

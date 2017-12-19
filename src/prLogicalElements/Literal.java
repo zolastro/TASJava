@@ -3,12 +3,12 @@ package src.prLogicalElements;
 public class Literal implements Element {
 
 	private boolean isPositive;
-	private char symbol;
-	public Literal(char symbol, boolean isPositive){
+	private String symbol;
+	public Literal(String symbol, boolean isPositive){
 		this.symbol = symbol;
 		this.isPositive = isPositive;
 	}
-	public Literal(char symbol) {
+	public Literal(String symbol) {
 		this(symbol, true);
 	}
 

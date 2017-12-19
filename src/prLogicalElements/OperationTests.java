@@ -12,8 +12,8 @@ class OperationTests {
 	@BeforeEach
 	public void setUp() {
 		this.operation = new Operation(OperationType.AND);
-		this.operation.addComponent(new Literal('p'));
-		this.operation.addComponent(new Literal('q'));
+		this.operation.addComponent(new Literal("p"));
+		this.operation.addComponent(new Literal("q"));
 		
 	}
 	
@@ -48,7 +48,7 @@ class OperationTests {
 	public void when_addComponent_then_correctInsertion() {
 		int numberOfComponents = operation.components.size();
 		
-		Literal literal = new Literal('r');
+		Literal literal = new Literal("r");
 		operation.addComponent(literal);
 		
 		assertEquals(numberOfComponents + 1, operation.components.size());
@@ -85,8 +85,8 @@ class OperationTests {
 	@Test
 	public void when_negateThenOperation_then_typeChangesToAnd() {
 		Operation thenOperation = new Operation(OperationType.THEN);
-		thenOperation.addComponent(new Literal('p'));
-		thenOperation.addComponent(new Literal('q'));
+		thenOperation.addComponent(new Literal("p"));
+		thenOperation.addComponent(new Literal("q"));
 		
 		assertEquals(OperationType.THEN, thenOperation.type);
 		thenOperation.negateType();
@@ -96,8 +96,8 @@ class OperationTests {
 	@Test
 	public void when_signarThenOperation_then_typeChangesToOr() {
 		Operation thenOperation = new Operation(OperationType.THEN);
-		thenOperation.addComponent(new Literal('p'));
-		thenOperation.addComponent(new Literal('q'));
+		thenOperation.addComponent(new Literal("p"));
+		thenOperation.addComponent(new Literal("q"));
 		
 		assertEquals(OperationType.THEN, thenOperation.type);
 		thenOperation.signar();

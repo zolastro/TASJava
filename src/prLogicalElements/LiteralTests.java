@@ -11,7 +11,7 @@ public class LiteralTests {
 	
 	@BeforeEach
 	public void setUp() {		
-		this.literal = new Literal('p');
+		this.literal = new Literal("p");
 	}
 	
 	@AfterEach
@@ -21,13 +21,13 @@ public class LiteralTests {
 
 	@Test
 	public void when_useDefaultConstructor_then_literalIsPositive() {
-		Literal positiveLiteral = new Literal('q');
+		Literal positiveLiteral = new Literal("q");
 		assertTrue(literal.isPositive());
 	}
 	
 	@Test
 	public void when_useConstructorWithFalse_then_literalIsNegated() {
-		Literal negatedLiteral = new Literal('q', false);
+		Literal negatedLiteral = new Literal("q", false);
 		assertFalse(negatedLiteral.isPositive());
 	}
 	

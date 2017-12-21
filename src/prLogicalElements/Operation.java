@@ -1,5 +1,6 @@
 package src.prLogicalElements;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Operation implements Element {
@@ -20,12 +21,12 @@ public class Operation implements Element {
 
 	public void addComponents(Element ... elements) {
 		for(Element element : elements) {
-			this.addComponent(element);
+			this.components.add(element);
 		}
 	}
 	
-	public void addComponent(Element component) {
-		this.components.add(component);
+	public void addComponents(Collection<Element> elements) {
+		this.components.addAll(elements);
 	}
 
 	public boolean isPositive() {
@@ -51,11 +52,30 @@ public class Operation implements Element {
 			this.type = OperationType.AND;
 			this.components.get(1).negate();
 			break;
+		case IFF:
+			unfoldIffOperation();
+			this.negate();
+			this.negateType();
+			break;
 		default:
 			throw new RuntimeException("Operation not implemented");
 		}
 
 		this.isPositive = true;
+	}
+	
+	private void unfoldIffOperation() {
+		this.type = OperationType.AND;
+		
+		Operation left = new Operation(OperationType.THEN);
+		left.addComponents(this.components);
+		
+		Operation right = new Operation(OperationType.THEN);
+		right.addComponents(this.components.get(1).clone());
+		right.addComponents(this.components.get(0).clone());
+		
+		this.components.clear();
+		this.addComponents(left, right);
 	}
 
 	public void signar() {
@@ -66,6 +86,8 @@ public class Operation implements Element {
 		} else if (this.type == OperationType.THEN) {
 			this.type = OperationType.OR;
 			this.components.get(0).negate();
+		} else if (this.type == OperationType.IFF) {
+			unfoldIffOperation();
 		}
 		
 		//Signar all it's children
@@ -115,7 +137,7 @@ public class Operation implements Element {
 	public Element clone() {
 		Operation clone = new Operation(this.type);
 		for (Element component: this.components) {
-			clone.addComponent(component.clone());
+			clone.addComponents(component.clone());
 		}
 		return clone;
 	}

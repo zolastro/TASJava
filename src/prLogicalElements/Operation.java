@@ -111,4 +111,12 @@ public class Operation implements Element {
 		sb.append(")");
 		return sb.toString();
 	}
+	
+	public Element clone() {
+		Operation clone = new Operation(this.type);
+		for (Element component: this.components) {
+			clone.addComponent(component.clone());
+		}
+		return clone;
+	}
 }

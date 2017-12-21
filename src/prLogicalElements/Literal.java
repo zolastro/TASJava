@@ -36,4 +36,8 @@ public class Literal implements Element {
 		}
 		return isEquals;
 	}
+	
+	public Element clone() {
+		return new Literal(this.symbol, this.isPositive);
+	}
 }

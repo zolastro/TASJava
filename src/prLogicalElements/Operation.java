@@ -4,30 +4,54 @@ import java.util.List;
 
 public class Operation implements Element {
 
-	public List<Element> components;
+	public List<Operation> operations;
+	public List<Literal> literals;
 	public OperationType type;
 	private boolean isPositive;
 
 	public Operation(OperationType type, boolean isPositive) {
 		this.type = type;
-		this.components = new ArrayList<>();
+		this.operations = new ArrayList<>();
+		this.literals = new ArrayList<>();
 		this.isPositive = isPositive;
+	}
+	
+	public int numberOfComponents() {
+		return this.operations.size() + this.literals.size();
 	}
 
 	public Operation(OperationType type) {
 		this(type, true);
 	}
 
-	public void addComponents(Element ... elements) {
-		for(Element element : elements) {
-			this.addComponent(element);
+	public void addOperations(Operation ... operations) {
+		for(Operation operation : operations) {
+			this.operations.add(operation);
 		}
 	}
 	
-	public void addComponent(Element component) {
-		this.components.add(component);
-	}
 
+	
+	public void addLiterals(String ... literals) {
+		for(String literal : literals) {
+			//Remove white spaces
+			literal = literal.trim();
+			//Starts by ¬?
+			boolean positiveLiteral = (literal.charAt(0) != '¬');
+			if(!positiveLiteral) {
+				//If so, remove the ¬ symbol
+				literal = literal.substring(1, literal.length()).trim();
+			}
+			this.literals.add(new Literal(literal, positiveLiteral));
+		}
+	}
+	
+	public void addLiterals(Literal ... literals) {
+		for(Literal literal : literals) {
+			this.literals.add(literal);
+		}
+	}
+	
 	public boolean isPositive() {
 		return this.isPositive;
 	}
@@ -47,9 +71,10 @@ public class Operation implements Element {
 			this.type = OperationType.AND;
 			this.negateAllComponents();
 			break;
+//		Don't know how to implement this...
 		case THEN:
 			this.type = OperationType.AND;
-			this.components.get(1).negate();
+			this.operations.get(1).negate();		//which goes first if we have an operation and a Literal??
 			break;
 		default:
 			throw new RuntimeException("Operation not implemented");
@@ -65,46 +90,54 @@ public class Operation implements Element {
 			this.negateType();
 		} else if (this.type == OperationType.THEN) {
 			this.type = OperationType.OR;
-			this.components.get(0).negate();
+			this.operations.get(0).negate();
+//			throw new RuntimeException("Operation not implemented");
 		}
 		
 		//Signar all it's children
 		
-		for (Element component : this.components) {
-			component.signar();
+		for (Operation operation : this.operations) {
+			operation.signar();
 		}
 		
 		//Merge children of the same type
 		
-		List<Element> mergedComponents = new ArrayList<>();
+		List<Operation> mergedOperations = new ArrayList<>();
 
-		for (Element child : this.components) {
-			if (child instanceof Operation) {
-				Operation component = (Operation) child;
-				if (component.type == this.type) {
-					mergedComponents.addAll(component.components);
-				} else {
-					mergedComponents.add(component);
-				}
+		for (Operation operation : this.operations) {
+			if(this.type == operation.type) {
+				this.literals.addAll(operation.literals);
+				mergedOperations.addAll(operation.operations);
 			} else {
-				mergedComponents.add(child);
+				mergedOperations.add(operation);
 			}
 		}
-		this.components = mergedComponents;
+		
+		this.operations = mergedOperations;
 	}
 
 	public void negateAllComponents() {
-		for (Element component : this.components) {
-			component.negate();
+		for (Operation operation : this.operations) {
+			operation.negate();
+		}
+		for (Literal literal : this.literals) {
+			literal.negate();
 		}
 	}
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append((this.isPositive() ? "" : "¬") + "(");
-		int lenComponents = this.components.size();
-		for (int i = 0; i < lenComponents; i++) {
-			sb.append(this.components.get(i));
-			if (i < lenComponents - 1) {
+		
+		for (int i = 0; i < this.literals.size(); i++) {
+			sb.append(this.literals.get(i));
+			if (i < this.numberOfComponents() - 1) {
+				sb.append(" " + type + " ");
+			}
+		}
+		
+		for (int i = 0; i < this.operations.size(); i++) {
+			sb.append(this.operations.get(i));
+			if (i + this.literals.size() < this.numberOfComponents() - 1) {
 				sb.append(" " + type + " ");
 			}
 		}

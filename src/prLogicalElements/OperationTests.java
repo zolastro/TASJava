@@ -73,6 +73,7 @@ class OperationTests {
 		assertEquals(OperationType.OR, andOperation.type);	
 	}
 	
+	
 	@Test
 	public void when_negateOrOperation_then_typeChangesToAnd() {
 		Operation orOperation = new Operation(OperationType.OR);
@@ -93,6 +94,16 @@ class OperationTests {
 		assertEquals(OperationType.AND, thenOperation.type);
 	}
 	
+	public void when_negateIffOperation_then_typeChangesToAnd() {
+		Operation iffOperation = new Operation(OperationType.IFF);
+		iffOperation.addComponent(new Literal("p"));
+		iffOperation.addComponent(new Literal("q"));
+		
+		assertEquals(OperationType.IFF, iffOperation.type);
+		iffOperation.signar();
+		assertEquals(OperationType.AND, iffOperation.type);	
+	}
+	
 	@Test
 	public void when_signarThenOperation_then_typeChangesToOr() {
 		Operation thenOperation = new Operation(OperationType.THEN);
@@ -102,6 +113,17 @@ class OperationTests {
 		assertEquals(OperationType.THEN, thenOperation.type);
 		thenOperation.signar();
 		assertEquals(OperationType.OR, thenOperation.type);	
+	}
+	
+	@Test
+	public void when_signarIffOperation_then_typeChangesToAnd() {
+		Operation iffOperation = new Operation(OperationType.IFF);
+		iffOperation.addComponent(new Literal("p"));
+		iffOperation.addComponent(new Literal("q"));
+		
+		assertEquals(OperationType.IFF, iffOperation.type);
+		iffOperation.signar();
+		assertEquals(OperationType.AND, iffOperation.type);	
 	}
 	
 	@Test

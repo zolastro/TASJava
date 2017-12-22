@@ -115,7 +115,7 @@ class OperationTests {
 		assertEquals(OperationType.OR, thenOperation.type);	
 	}
 	
-	//@Test
+	@Test
 	public void when_signarIffOperation_then_typeChangesToAnd() {
 		Operation iffOperation = new Operation(OperationType.IFF);
 		iffOperation.addComponents(new Literal("p"));

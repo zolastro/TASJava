@@ -1,4 +1,4 @@
-package src.prLogicalElements;
+package prLogicalElements;
 
 public class Literal implements Element {
 
@@ -21,7 +21,7 @@ public class Literal implements Element {
 	}
 
 	public String toString() {
-		return (this.isPositive ? "":"Â¬") + this.symbol;
+		return (this.isPositive ? "":"¬") + this.symbol;
 	}
 
 	public void signar() {

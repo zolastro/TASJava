@@ -1,4 +1,4 @@
-package src.prLogicalElements;
+package prLogicalElements;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -122,7 +122,7 @@ public class Operation implements Element {
 	}
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append((this.isPositive() ? "" : "Â¬") + "(");
+		sb.append((this.isPositive() ? "" : "¬") + "(");
 		int lenComponents = this.components.size();
 		for (int i = 0; i < lenComponents; i++) {
 			sb.append(this.components.get(i));

@@ -1,6 +1,5 @@
-package src;
-
-import src.prLogicalElements.*;
+import Tas.Tas;
+import prLogicalElements.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -21,9 +20,7 @@ public class Main {
 		System.out.println("IFF test");
 		Operation root = new Operation(OperationType.IFF, false);
 		root.addComponents(new Literal("p"), new Literal("q"));
-		System.out.println(root);
-		root.signar();
-		System.out.println(root);
 
+		Tas.execute(root);
 	}
 }

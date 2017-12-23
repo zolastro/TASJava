@@ -1,4 +1,4 @@
-package src.prLogicalElements;
+package prLogicalElements;
 
 import static org.junit.jupiter.api.Assertions.*;
 

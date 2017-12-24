@@ -46,4 +46,11 @@ public class LiteralTests {
 		literal.negate();
 		assertEquals(literal.toString(), "¬p");
 	}
+	
+	@Test
+	public void when_sameLiteral_then_areEquals() {
+		Literal oneLiteral = new Literal("p");
+		Literal anotherLiteral = new Literal("p");
+		assertEquals(oneLiteral, anotherLiteral);
+	}
 }

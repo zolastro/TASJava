@@ -1,7 +1,9 @@
 package prLogicalElements;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Operation implements Element {
 
@@ -114,12 +116,31 @@ public class Operation implements Element {
 		}
 		this.components = mergedComponents;
 	}
+	
+	
 
 	public void negateAllComponents() {
 		for (Element component : this.components) {
 			component.negate();
 		}
 	}
+	
+	public boolean isLiteral() {
+		return false;
+	}
+	
+	public Set<Literal> getLiterals() {
+		Set<Literal> literals = new HashSet<>();
+		for(Element element: this.components) {
+			if (element.isLiteral()) {
+				literals.add((Literal) element);
+			} else {
+				literals.addAll(((Operation)element).getLiterals());
+			}
+		}
+		return literals;
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append((this.isPositive() ? "" : "¬") + "(");

@@ -4,5 +4,6 @@ public interface Element {
     public boolean isPositive();
     public void signar();
     public Element clone();
+    public boolean isLiteral();
 }
 

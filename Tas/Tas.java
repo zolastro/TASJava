@@ -1,14 +1,17 @@
 package Tas;
 
+import java.util.Set;
+
 import prLogicalElements.*;
 
 public class Tas {
 
-	public static void execute(Operation root) {
+	public static void runTAS(Operation root) {
 		System.out.println(root);
 		root.signar();
 		System.out.println(root);
 		//TAS EXECUTION
+		Tas.removePureLiterals(root);
 		
 		/*
 		 * Restringir
@@ -39,8 +42,25 @@ public class Tas {
 //			}
 //			
 //		}	
-		
-		
-		
 	}
+	
+	
+	
+	private static Set<Literal> getPureLiterals(Operation operation) {
+		//This method is not finished
+		Set<Literal> literals = operation.getLiterals();
+		System.out.print("The following literals are pure literals: ");
+		for (Literal literal: literals) {
+			if(!literals.contains(opositLiteralOf(literal))) {
+				System.out.print(literal + " ");
+			}
+		}
+		System.out.println();
+		return literals;
+	}
+
+	private static Literal opositLiteralOf(Literal literal) {
+		return new Literal(literal.symbol, !literal.isPositive());
+	}
+	
 }

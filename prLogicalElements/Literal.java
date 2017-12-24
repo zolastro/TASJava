@@ -28,13 +28,21 @@ public class Literal implements Element {
 		
 	}
 	
+	public boolean isLiteral() {
+		return true;
+	}
+	
 	public boolean equals(Object o) {
 		boolean isEquals = false;
 		if(o instanceof Literal) {
 			Literal literal = (Literal)o;
-			isEquals = this.symbol.equals(literal.symbol);
+			isEquals = this.symbol.equals(literal.symbol) && (this.isPositive == literal.isPositive);
 		}
 		return isEquals;
+	}
+	
+	public int hashCode() {
+		return this.symbol.hashCode();
 	}
 	
 	public Element clone() {

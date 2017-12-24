@@ -140,4 +140,16 @@ class OperationTests {
 		Operation clone = (Operation) this.operation.clone();
 		assertEquals(this.operation.toString(), clone.toString());
 	}
+	
+	@Test
+	public void when_operationGetLiterals_then_sameNumberOfLiterals() {
+		Operation rootOperation = new Operation(OperationType.AND);
+		rootOperation.addComponents(new Literal("p"));
+		Operation nestedOperation = new Operation(OperationType.OR);
+		nestedOperation.addComponents(new Literal("q"), new Literal("r"));
+		rootOperation.addComponents(nestedOperation);
+		
+		assertEquals(3, rootOperation.getLiterals().size());
+	}
+	
 }

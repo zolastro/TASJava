@@ -18,9 +18,9 @@ public class Main {
 		
 		
 		System.out.println("IFF test");
-		Operation root = new Operation(OperationType.IFF, false);
+		Operation root = new Operation(OperationType.AND, false);
 		root.addComponents(new Literal("p"), new Literal("q"));
 
-		Tas.execute(root);
+		Tas.runTAS(root);
 	}
 }

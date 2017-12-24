@@ -122,7 +122,7 @@ public class Operation implements Element {
 	}
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append((this.isPositive() ? "" : "¬") + "(");
+		sb.append((this.isPositive() ? "" : "Â¬") + "(");
 		int lenComponents = this.components.size();
 		for (int i = 0; i < lenComponents; i++) {
 			sb.append(this.components.get(i));

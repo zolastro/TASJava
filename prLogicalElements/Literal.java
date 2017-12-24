@@ -21,7 +21,7 @@ public class Literal implements Element {
 	}
 
 	public String toString() {
-		return (this.isPositive ? "":"¬") + this.symbol;
+		return (this.isPositive ? "":"Â¬") + this.symbol;
 	}
 
 	public void signar() {

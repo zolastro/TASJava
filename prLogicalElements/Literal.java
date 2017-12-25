@@ -20,17 +20,14 @@ public class Literal implements Element {
 		this.isPositive = !this.isPositive;
 	}
 
+	public boolean isLiteral() {
+		return true;
+	}
+	
 	public String toString() {
 		return (this.isPositive ? "":"¬") + this.symbol;
 	}
 
-	public void signar() {
-		
-	}
-	
-	public boolean isLiteral() {
-		return true;
-	}
 	
 	public boolean equals(Object o) {
 		boolean isEquals = false;

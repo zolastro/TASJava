@@ -63,77 +63,77 @@ class OperationTests {
 		assertEquals("¬(p AND q)", operation.toString());
 	}
 	
-	@Test
-	public void when_negateAndOperation_then_typeChangesToOr() {
-		Operation andOperation = new Operation(OperationType.AND);
-
-		
-		assertEquals(OperationType.AND, andOperation.type);
-		andOperation.negateType();
-		assertEquals(OperationType.OR, andOperation.type);	
-	}
+//	@Test
+//	public void when_negateAndOperation_then_typeChangesToOr() {
+//		Operation andOperation = new Operation(OperationType.AND);
+//
+//		
+//		assertEquals(OperationType.AND, andOperation.type);
+//		andOperation.negateType();
+//		assertEquals(OperationType.OR, andOperation.type);	
+//	}
+//	
+//	
+//	@Test
+//	public void when_negateOrOperation_then_typeChangesToAnd() {
+//		Operation orOperation = new Operation(OperationType.OR);
+//		
+//		assertEquals(OperationType.OR, orOperation.type);
+//		orOperation.negateType();
+//		assertEquals(OperationType.AND, orOperation.type);
+//	}
+//	
+//	@Test
+//	public void when_negateThenOperation_then_typeChangesToAnd() {
+//		Operation thenOperation = new Operation(OperationType.THEN);
+//		thenOperation.addComponents(new Literal("p"));
+//		thenOperation.addComponents(new Literal("q"));
+//		
+//		assertEquals(OperationType.THEN, thenOperation.type);
+//		thenOperation.negateType();
+//		assertEquals(OperationType.AND, thenOperation.type);
+//	}
+//	
+//	public void when_negateIffOperation_then_typeChangesToAnd() {
+//		Operation iffOperation = new Operation(OperationType.IFF);
+//		iffOperation.addComponents(new Literal("p"));
+//		iffOperation.addComponents(new Literal("q"));
+//		
+//		assertEquals(OperationType.IFF, iffOperation.type);
+//		iffOperation.signar();
+//		assertEquals(OperationType.AND, iffOperation.type);	
+//	}
+//	
+//	@Test
+//	public void when_signarThenOperation_then_typeChangesToOr() {
+//		Operation thenOperation = new Operation(OperationType.THEN);
+//		thenOperation.addComponents(new Literal("p"));
+//		thenOperation.addComponents(new Literal("q"));
+//		
+//		assertEquals(OperationType.THEN, thenOperation.type);
+//		thenOperation.signar();
+//		assertEquals(OperationType.OR, thenOperation.type);	
+//	}
 	
+//	@Test
+//	public void when_signarIffOperation_then_typeChangesToAnd() {
+//		Operation iffOperation = new Operation(OperationType.IFF);
+//		iffOperation.addComponents(new Literal("p"));
+//		iffOperation.addComponents(new Literal("q"));
+//		
+//		assertEquals(OperationType.IFF, iffOperation.type);
+//		iffOperation.signar();
+//		assertEquals(OperationType.AND, iffOperation.type);	
+//	}
 	
-	@Test
-	public void when_negateOrOperation_then_typeChangesToAnd() {
-		Operation orOperation = new Operation(OperationType.OR);
-		
-		assertEquals(OperationType.OR, orOperation.type);
-		orOperation.negateType();
-		assertEquals(OperationType.AND, orOperation.type);
-	}
-	
-	@Test
-	public void when_negateThenOperation_then_typeChangesToAnd() {
-		Operation thenOperation = new Operation(OperationType.THEN);
-		thenOperation.addComponents(new Literal("p"));
-		thenOperation.addComponents(new Literal("q"));
-		
-		assertEquals(OperationType.THEN, thenOperation.type);
-		thenOperation.negateType();
-		assertEquals(OperationType.AND, thenOperation.type);
-	}
-	
-	public void when_negateIffOperation_then_typeChangesToAnd() {
-		Operation iffOperation = new Operation(OperationType.IFF);
-		iffOperation.addComponents(new Literal("p"));
-		iffOperation.addComponents(new Literal("q"));
-		
-		assertEquals(OperationType.IFF, iffOperation.type);
-		iffOperation.signar();
-		assertEquals(OperationType.AND, iffOperation.type);	
-	}
-	
-	@Test
-	public void when_signarThenOperation_then_typeChangesToOr() {
-		Operation thenOperation = new Operation(OperationType.THEN);
-		thenOperation.addComponents(new Literal("p"));
-		thenOperation.addComponents(new Literal("q"));
-		
-		assertEquals(OperationType.THEN, thenOperation.type);
-		thenOperation.signar();
-		assertEquals(OperationType.OR, thenOperation.type);	
-	}
-	
-	@Test
-	public void when_signarIffOperation_then_typeChangesToAnd() {
-		Operation iffOperation = new Operation(OperationType.IFF);
-		iffOperation.addComponents(new Literal("p"));
-		iffOperation.addComponents(new Literal("q"));
-		
-		assertEquals(OperationType.IFF, iffOperation.type);
-		iffOperation.signar();
-		assertEquals(OperationType.AND, iffOperation.type);	
-	}
-	
-	@Test
-	public void when_signarNegatedOperation_then_operationIsPositive() {
-		operation.negate();
-		assertFalse(operation.isPositive());
-		
-		operation.signar();
-		assertTrue(operation.isPositive());
-	}
+//	@Test
+//	public void when_signarNegatedOperation_then_operationIsPositive() {
+//		operation.negate();
+//		assertFalse(operation.isPositive());
+//		
+//		operation.signar();
+//		assertTrue(operation.isPositive());
+//	}
 	
 	@Test
 	public void when_operationCloned_then_sameToString() {

@@ -8,10 +8,10 @@ public class Tas {
 
 	public static void runTAS(Operation root) {
 		System.out.println(root);
-		root.signar();
+		Signar.signar(root);
 		System.out.println(root);
 		//TAS EXECUTION
-		Tas.removePureLiterals(root);
+		Tas.getPureLiterals(root);
 		
 		/*
 		 * Restringir

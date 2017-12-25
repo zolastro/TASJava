@@ -24,9 +24,6 @@ public class Literal implements Element {
 		return (this.isPositive ? "":"¬") + this.symbol;
 	}
 
-	public void signar() {
-		
-	}
 	
 	public boolean isLiteral() {
 		return true;

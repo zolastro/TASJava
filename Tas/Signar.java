@@ -23,7 +23,9 @@ public class Signar {
 
 		for (Element element : operation.components) {
 			if (element.isLiteral()) {
-				mergedComponents.add(element);
+				if(!mergedComponents.contains(element)) {					
+					mergedComponents.add(element);
+				}
 			} else {
 				Operation childOperation = (Operation) element;
 				signar(childOperation);

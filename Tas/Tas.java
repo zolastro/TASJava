@@ -15,8 +15,8 @@ public class Tas {
 		// TAS EXECUTION
 		//do {
 		System.out.println(root);
-		System.out.println("These are the pure literals: " + getPureLiterals(root));
-		removePureLiterals(root, getPureLiterals(root));
+		System.out.println("These are the pure literals: " + PureLiteral.getPureLiterals(root));
+		PureLiteral.removePureLiterals(root);
 		System.out.println("Removing pure literals...");
 		System.out.println(root);
 		//System.out.println("Prunning...");
@@ -52,53 +52,4 @@ public class Tas {
 		//
 		// }
 	}
-
-
-	private static void removePureLiterals(Operation operation, Set<Literal> pureLiterals) {
-		boolean hasToremoveFromChildren = true;
-		switch (operation.type) {
-		case OR:
-			for (Literal literal : pureLiterals) {
-				if(operation.components.contains(literal)) {
-					operation.type = OperationType.T;
-					hasToremoveFromChildren = false;
-					break;
-				}
-			}
-			break;
-		case AND:
-			for (Literal literal : pureLiterals) {
-				operation.components.remove(literal);			
-			}
-			if(operation.components.size() == 0) {
-				operation.type = OperationType.T;
-			}
-			break;
-		default: 
-			throw new RuntimeException("Operation seems not to be in negative normal form: " + operation);
-		}
-		
-		if(operation.type != OperationType.T) {
-			for (Operation childOperation : operation.getOperations()) {
-				removePureLiterals(childOperation, pureLiterals);				
-			}					
-		}
-	}
-
-	private static Set<Literal> getPureLiterals(Operation operation) {
-		Set<Literal> pureLiterals = new HashSet<>();
-		Set<Literal> literals = operation.getLiterals();
-		for (Literal literal : literals) {
-			if (!literals.contains(opositLiteralOf(literal))) {
-				pureLiterals.add(literal);
-			}
-		}
-		return pureLiterals;
-	}
-	
-	private static Literal opositLiteralOf(Literal literal) {
-		return new Literal(literal.symbol, !literal.isPositive());
-	}
-
-	
 }

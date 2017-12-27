@@ -61,10 +61,23 @@ public class Operation implements Element {
 		return literals;
 	}
 	
+	public List<Operation> getOperations() {
+		List<Operation> operations = new ArrayList<>();
+		for(Element element: this.components) {
+			if (!element.isLiteral()) {
+				operations.add((Operation) element);
+			}
+		}
+		return operations;
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append((this.isPositive() ? "" : "¬") + "(");
 		int lenComponents = this.components.size();
+		if(lenComponents == 0) {
+			sb.append(type);
+		}
 		for (int i = 0; i < lenComponents; i++) {
 			sb.append(this.components.get(i));
 			if (i < lenComponents - 1) {

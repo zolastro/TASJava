@@ -1,5 +1,6 @@
 package Tas;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import prLogicalElements.*;
@@ -7,13 +8,21 @@ import prLogicalElements.*;
 public class Tas {
 
 	public static void runTAS(Operation root) {
+		System.out.println("Original");
 		System.out.println(root);
 		Signar.signar(root);
-		System.out.println(root);
+		System.out.println("After signar");
 		// TAS EXECUTION
-		getPureLiterals(root);
-		removePureLiterals(root, getPureLiterals(root));
+		//do {
 		System.out.println(root);
+		System.out.println("These are the pure literals: " + getPureLiterals(root));
+		removePureLiterals(root, getPureLiterals(root));
+		System.out.println("Removing pure literals...");
+		System.out.println(root);
+		//System.out.println("Prunning...");
+		//} while (pruneOperation(root));
+		//System.out.println("Done!");
+		//System.out.println(root);
 
 		/*
 		 * Restringir Red Completa Puro Sub Quine
@@ -44,25 +53,15 @@ public class Tas {
 		// }
 	}
 
-	private static Set<Literal> getPureLiterals(Operation operation) {
-		// This method is not finished
-		Set<Literal> literals = operation.getLiterals();
-		System.out.print("The following literals are pure literals: ");
-		for (Literal literal : literals) {
-			if (!literals.contains(opositLiteralOf(literal))) {
-				System.out.print(literal + " ");
-			}
-		}
-		System.out.println();
-		return literals;
-	}
 
 	private static void removePureLiterals(Operation operation, Set<Literal> pureLiterals) {
+		boolean hasToremoveFromChildren = true;
 		switch (operation.type) {
 		case OR:
 			for (Literal literal : pureLiterals) {
 				if(operation.components.contains(literal)) {
-					operation.type = OperationType.NIL;
+					operation.type = OperationType.T;
+					hasToremoveFromChildren = false;
 					break;
 				}
 			}
@@ -71,15 +70,35 @@ public class Tas {
 			for (Literal literal : pureLiterals) {
 				operation.components.remove(literal);			
 			}
-			removePureLiterals(operation, pureLiterals);
+			if(operation.components.size() == 0) {
+				operation.type = OperationType.T;
+			}
 			break;
 		default: 
 			throw new RuntimeException("Operation seems not to be in negative normal form: " + operation);
 		}
+		
+		if(operation.type != OperationType.T) {
+			for (Operation childOperation : operation.getOperations()) {
+				removePureLiterals(childOperation, pureLiterals);				
+			}					
+		}
 	}
 
+	private static Set<Literal> getPureLiterals(Operation operation) {
+		Set<Literal> pureLiterals = new HashSet<>();
+		Set<Literal> literals = operation.getLiterals();
+		for (Literal literal : literals) {
+			if (!literals.contains(opositLiteralOf(literal))) {
+				pureLiterals.add(literal);
+			}
+		}
+		return pureLiterals;
+	}
+	
 	private static Literal opositLiteralOf(Literal literal) {
 		return new Literal(literal.symbol, !literal.isPositive());
 	}
 
+	
 }

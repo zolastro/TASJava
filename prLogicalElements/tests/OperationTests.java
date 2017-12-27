@@ -89,4 +89,17 @@ class OperationTests {
 		assertEquals(3, rootOperation.getLiterals().size());
 	}
 	
+	
+	@Test
+	public void when_operationGetOperations_then_sameNumberOfOperations() {
+		Operation rootOperation = new Operation(OperationType.AND);
+		rootOperation.addComponents(new Literal("p"));
+		Operation nestedOperation = new Operation(OperationType.OR);
+		nestedOperation.addComponents(new Literal("q"), new Literal("r"));
+		rootOperation.addComponents(nestedOperation);
+		assertEquals(1, rootOperation.getOperations().size());
+
+	}
+	
+	
 }

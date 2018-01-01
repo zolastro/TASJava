@@ -19,10 +19,6 @@ public class Literal implements Element {
 	public void negate() {
 		this.isPositive = !this.isPositive;
 	}
-
-	public boolean isLiteral() {
-		return true;
-	}
 	
 	public String toString() {
 		return (this.isPositive ? "":"¬") + this.symbol;

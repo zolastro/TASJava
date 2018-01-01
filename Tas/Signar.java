@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import prLogicalElements.Element;
+import prLogicalElements.Literal;
 import prLogicalElements.Operation;
 import prLogicalElements.OperationType;
 
@@ -22,7 +23,7 @@ public class Signar {
 		List<Element> mergedComponents = new ArrayList<>();
 
 		for (Element element : operation.components) {
-			if (element.isLiteral()) {
+			if (element instanceof Literal) {
 				if(!mergedComponents.contains(element)) {					
 					mergedComponents.add(element);
 				}

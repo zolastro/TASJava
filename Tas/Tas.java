@@ -12,9 +12,9 @@ public class Tas {
 		System.out.println(root);
 		Signar.signar(root);
 		System.out.println("After signar");
+		System.out.println(root);
 		// TAS EXECUTION
 		//do {
-		System.out.println(root);
 		System.out.println("These are the pure literals: " + PureLiteral.getPureLiterals(root));
 		PureLiteral.removePureLiterals(root);
 		System.out.println("Removing pure literals...");

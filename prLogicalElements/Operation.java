@@ -45,14 +45,10 @@ public class Operation implements Element {
 		}
 	}
 	
-	public boolean isLiteral() {
-		return false;
-	}
-	
 	public Set<Literal> getLiterals() {
 		Set<Literal> literals = new HashSet<>();
 		for(Element element: this.components) {
-			if (element.isLiteral()) {
+			if (element instanceof Literal) {
 				literals.add((Literal) element);
 			} else {
 				literals.addAll(((Operation)element).getLiterals());
@@ -64,10 +60,34 @@ public class Operation implements Element {
 	public List<Operation> getOperations() {
 		List<Operation> operations = new ArrayList<>();
 		for(Element element: this.components) {
-			if (!element.isLiteral()) {
+			if (element instanceof Operation) {
 				operations.add((Operation) element);
 			}
 		}
+		return operations;
+	}
+	
+	public Set<Literal> getInmediateLiterals() {
+
+		Set<Literal> literals = new HashSet<>();
+		for (Element elements : this.components) {
+			if (elements instanceof Literal) {
+				literals.add((Literal) elements);
+			}
+		}
+		
+		return literals;
+	}
+	
+	public List<Operation> getInmediateOperations() {
+
+		List<Operation> operations = new ArrayList<>();
+		for (Element elements : this.components) {
+			if (elements instanceof Operation) {
+				operations.add((Operation) elements);
+			}
+		}
+		
 		return operations;
 	}
 	

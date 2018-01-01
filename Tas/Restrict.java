@@ -32,7 +32,7 @@ public class Restrict {
 			for (Operation operations : operationsOfRoot) {
 				if (!operations.getInmediateLiterals().contains(literals)) {
 					canRestrict = false;
-					// probar si el break rompe los dos bucles o solo este (quiero el solo este)
+					break;
 				}
 			}
 			if (canRestrict) {
@@ -51,7 +51,7 @@ public class Restrict {
 			for (int i = 1; i < operationsOfRoot.size(); i++) {
 				if (!operationsOfRoot.get(i).getInmediateLiterals().contains(literals)) {
 					canRestrict = false;
-					// probar si el break rompe los dos bucles o solo este (quiero el solo este)
+					break;
 				}
 			}
 			if (canRestrict) {

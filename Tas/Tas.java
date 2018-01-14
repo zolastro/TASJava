@@ -1,8 +1,5 @@
 package Tas;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import prLogicalElements.*;
 
 public class Tas {
@@ -15,10 +12,14 @@ public class Tas {
 		System.out.println(root);
 		// TAS EXECUTION
 		//do {
-		System.out.println("These are the pure literals: " + PureLiteral.getPureLiterals(root));
-		PureLiteral.removePureLiterals(root);
-		System.out.println("Removing pure literals...");
-		System.out.println(root);
+//		System.out.println("These are the pure literals: " + PureLiteral.getPureLiterals(root));
+//		PureLiteral.removePureLiterals(root);
+//		System.out.println("Removing pure literals...");
+//		System.out.println(root);
+		
+//		System.out.println("Restricting...");
+//		Restrict.toRestrict(root);
+//		System.out.println(root);
 		//System.out.println("Prunning...");
 		//} while (pruneOperation(root));
 		//System.out.println("Done!");

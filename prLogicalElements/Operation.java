@@ -9,12 +9,17 @@ public class Operation implements Element {
 
 	public List<Element> components;
 	public OperationType type;
+	public List<Element> literalsThatMustBeMoved;
+	public List<Element> literalsThatMustBeMovedJustOne;
 	private boolean isPositive;
-
+	
+	
 	public Operation(OperationType type, boolean isPositive) {
 		this.type = type;
 		this.components = new ArrayList<>();
 		this.isPositive = isPositive;
+		this.literalsThatMustBeMoved = new ArrayList<>();
+		this.literalsThatMustBeMovedJustOne = new ArrayList<>();
 	}
 
 	public Operation(OperationType type) {
@@ -93,7 +98,7 @@ public class Operation implements Element {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append((this.isPositive() ? "" : "Â¬") + "(");
+		sb.append((this.isPositive() ? "" : "¬") + "(");
 		int lenComponents = this.components.size();
 		if(lenComponents == 0) {
 			sb.append(type);

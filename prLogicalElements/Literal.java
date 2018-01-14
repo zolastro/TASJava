@@ -4,6 +4,7 @@ public class Literal implements Element {
 
 	private boolean isPositive;
 	public String symbol;
+	
 	public Literal(String symbol, boolean isPositive){
 		this.symbol = symbol;
 		this.isPositive = isPositive;
@@ -21,7 +22,7 @@ public class Literal implements Element {
 	}
 	
 	public String toString() {
-		return (this.isPositive ? "":"Â¬") + this.symbol;
+		return (this.isPositive ? "":"¬") + this.symbol;
 	}
 
 	

@@ -9,12 +9,17 @@ public class Operation implements Element {
 
 	public List<Element> components;
 	public OperationType type;
+	public List<Element> literalsThatMustBeMoved;
+	public List<Element> literalsThatMustBeMovedJustOne;
 	private boolean isPositive;
-
+	
+	
 	public Operation(OperationType type, boolean isPositive) {
 		this.type = type;
 		this.components = new ArrayList<>();
 		this.isPositive = isPositive;
+		this.literalsThatMustBeMoved = new ArrayList<>();
+		this.literalsThatMustBeMovedJustOne = new ArrayList<>();
 	}
 
 	public Operation(OperationType type) {
@@ -45,14 +50,10 @@ public class Operation implements Element {
 		}
 	}
 	
-	public boolean isLiteral() {
-		return false;
-	}
-	
 	public Set<Literal> getLiterals() {
 		Set<Literal> literals = new HashSet<>();
 		for(Element element: this.components) {
-			if (element.isLiteral()) {
+			if (element instanceof Literal) {
 				literals.add((Literal) element);
 			} else {
 				literals.addAll(((Operation)element).getLiterals());
@@ -64,16 +65,40 @@ public class Operation implements Element {
 	public List<Operation> getOperations() {
 		List<Operation> operations = new ArrayList<>();
 		for(Element element: this.components) {
-			if (!element.isLiteral()) {
+			if (element instanceof Operation) {
 				operations.add((Operation) element);
 			}
 		}
 		return operations;
 	}
 	
+	public Set<Literal> getInmediateLiterals() {
+
+		Set<Literal> literals = new HashSet<>();
+		for (Element elements : this.components) {
+			if (elements instanceof Literal) {
+				literals.add((Literal) elements);
+			}
+		}
+		
+		return literals;
+	}
+	
+	public List<Operation> getInmediateOperations() {
+
+		List<Operation> operations = new ArrayList<>();
+		for (Element elements : this.components) {
+			if (elements instanceof Operation) {
+				operations.add((Operation) elements);
+			}
+		}
+		
+		return operations;
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append((this.isPositive() ? "" : "Â¬") + "(");
+		sb.append((this.isPositive() ? "" : "¬") + "(");
 		int lenComponents = this.components.size();
 		if(lenComponents == 0) {
 			sb.append(type);
